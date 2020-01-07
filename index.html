@@ -35,7 +35,7 @@
                 <h2 class="text-center">Search Movies</h2>
                 <div class="input-group mb-3">
                     
-                    <input type="text" v-model="t" class="form-control" placeholder="Movie's Name" >
+                    <input type="text" v-model="t" class="form-control" placeholder="Movie's Name">
                     <input type="text" v-model="y" class="form-control input-small" placeholder="Movie's Year" style="max-width: 150px;">
                     <div class="input-group-append">
                         <button class="btn btn-dark" type="button" id="button-search" @click="submit">Search</button>
@@ -44,10 +44,22 @@
             </div>
         </div>
         <hr>
-        <div v-for="movies in mov" class="currency">
-            {{ movies.Title }}
+        <div v-for="movies in mov" v-if="movies!=null">
+            
+                <div class="col-md-4">
+                    <div class="card mb-2" style="width: 18rem;">
+                        <img :src="movies.Poster" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">{{movies.Response}}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">{{movies.Year}}</h6>
+                            
+                        </div>
+                    </div>
+                </div>
+
         </div>
     </div>
+
 
     <!-- Modal -->
     <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"

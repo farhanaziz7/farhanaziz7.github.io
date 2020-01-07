@@ -6,7 +6,7 @@ new Vue({
         return {
             mov: null,
             t: null,
-            y: null
+            y: null,
         }
     },
     methods: {
@@ -19,8 +19,9 @@ new Vue({
                         t: this.t
                     }
                 })
-                .then(response => (this.mov = response))
-
+                .then(response => {
+                        this.mov = response
+                    })
         }
     }
 });
