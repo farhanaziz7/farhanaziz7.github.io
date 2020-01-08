@@ -41,13 +41,15 @@ const Title = Vue.extend({
     template: '#title',
     data: function () {
         return {
-            res: null,
+            film: null,
+            res:null,
+            det: null,
             s: null,
             i:null
         }
     },
     methods: {
-        search() {
+        searching() {
             axios
                 .get('http://www.omdbapi.com/', {
                     params: {
@@ -56,19 +58,24 @@ const Title = Vue.extend({
                     }
                 })
                 .then(response => {
-                    this.res = response
+                    this.film = response.data.Search
+                    for (let i = 0; i < response.data.Search.length; i++) {
+                        console.log(response.data.Search[i].Title);
+                    }
+                    // alert(response.data.Search[1].Title)
                 })
         },
         details() {
+            let id = event.target.getAttribute('data-id');
             axios
                 .get('http://www.omdbapi.com/', {
                     params: {
                         apikey: '310a3fc',
-                        i: this.i
+                        i: id
                     }
                 })
                 .then(response => {
-                    this.res = response
+                    this.det = response
                 })
         }
     }
