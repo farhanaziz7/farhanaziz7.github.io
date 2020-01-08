@@ -9,7 +9,7 @@
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
 
-    <title>Movies Info</title>
+    <title>MOVINFO</title>
 </head>
 
 <body>
@@ -22,9 +22,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Title<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="#">Search Movies<span class="sr-only">(current)</span></a>
                 </li>
-               
             </ul>
         </div>
     </nav>
@@ -45,20 +44,19 @@
         <div v-for="movies in mov">
             <div v-if="movies.Response=='True'">
                 <div class="row justify-content-center">
-
-                <div class="col-md-4">
-                    <div class="card mb-2" style="width: 18rem;">
-                        <img :src="movies.Poster" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">{{movies.Title}}</h5>
-                            <h6 class="card-subtitle mb-2 text-muted">{{movies.Year}}</h6>
-                            <a href="#" class="card-link details" data-toggle="modal" data-target="#details" :data-id="movies.imdbID">See Details</a>
+                    <div class="col-md-4">
+                        <div class="card mb-2" style="width: 18rem;">
+                            <img :src="movies.Poster" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title">{{movies.Title}}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{movies.Year}}</h6>
+                                <a href="#" class="card-link details" data-toggle="modal" data-target="#details" :data-id="movies.imdbID">See Details</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-                </div>
-
             </div>
+
             <div v-else-if="movies.Response=='False'">
                 <h2 class="text-center">{{movies.Error}}</h2>
             </div>
