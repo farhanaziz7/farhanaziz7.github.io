@@ -30,7 +30,7 @@
                         <router-link class="nav-link" to="/title">Search Title</router-link>
                     </li>
                     <li class="nav-item pl-3">
-                        <router-link class="nav-link" to="/search">Search with Year</router-link>
+                        <router-link class="nav-link" to="/search">Detail Search</router-link>
                     </li>
                 </ul>
             </div>
@@ -58,7 +58,7 @@
                 <div class="col-md-7">
                     <h2 class="text-center">Search Movies</h2>
                     <div class="input-group mb-3">
-                        <input type="text" v-model="s" class="form-control" placeholder="Movie's Name" @keyup.enter="search">
+                        <input type="text" v-model="s" class="form-control" placeholder="Movie's Name" @keyup.enter="searching">
                         <div class="input-group-append" >
                             <button class="btn btn-dark" type="button" id="button-search" @click="searching">Search</button>
                         </div>
@@ -68,12 +68,13 @@
             <div class="row justify-content-center">
                 <div v-for="f in film">
                     <div class="col-md-4">
-                        <div class="card mb-2" style="width: 18rem;">
-                            <img :src="f.Poster" class="card-img-top">
+                        <div class="card mb-2" style="width: 18rem; min-height:600px;">
+                            <img :src="f.Poster" class="card-img-top" style="max-height: 420px;">
                             <div class="card-body">
                                 <h5 class="card-title">{{f.Title}}</h5>
                                 <h6 class="card-subtitle mb-2 text-muted">{{f.Year}}</h6>
-                                <a @click="details" class="card-link details" data-toggle="modal" data-target="#details" :data-id="f.imdbID">Details</a>
+                                <!-- <button @click="details" class="card-link details" data-toggle="modal" data-target="#details" :data-id="f.imdbID">Details</button> -->
+
                             </div>
                         </div>
                     </div>
@@ -165,48 +166,16 @@
         </div>
     </div>
     </script>
+
     <!-- Modal -->
-    <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Movies</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div v-for="d in det">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <img :src="d.Poster" class="img-fluid">
-                            </div>
-                            <div class="col-md-8">
-                                <ul class="list-group">
-                                    <li class="list-group-item">
-                                        <h3>{{det.Title}}</h3>
-                                    </li>
-                                    <li class="list-group-item">Released: {{det.Released}}</li>
-                                    <li class="list-group-item">Genre: {{det.Genre}}</li>
-                                    <li class="list-group-item">Director: {{det.Director}}</li>
-                                    <li class="list-group-item">Actors: {{det.Actors}}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div v-else-if="mov.Response=='False'">
-                        ...
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
+    <!-- template for the modal component -->
+    <script type="text/x-template" id="modal-template">
+      
     </div>
+    </script>
+
+
+    
 
     
 

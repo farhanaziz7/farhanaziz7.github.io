@@ -37,7 +37,10 @@ const Search = Vue.extend({
     }
 });
 
+
+
 const Title = Vue.extend({
+    template: '#modal-template',
     template: '#title',
     data: function () {
         return {
@@ -45,7 +48,7 @@ const Title = Vue.extend({
             res:null,
             det: null,
             s: null,
-            i:null
+            i:null,
         }
     },
     methods: {
@@ -60,7 +63,7 @@ const Title = Vue.extend({
                 .then(response => {
                     this.film = response.data.Search
                     for (let i = 0; i < response.data.Search.length; i++) {
-                        console.log(response.data.Search[i].Title);
+                        // console.log(response.data.Search[i].Title);
                     }
                     // alert(response.data.Search[1].Title)
                 })
@@ -80,6 +83,8 @@ const Title = Vue.extend({
         }
     }
 });
+
+
 
 // 2. Definisikan routing menuju komponen
 const routes = [
