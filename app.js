@@ -23,7 +23,7 @@ const Search = Vue.extend({
     methods: {
         submit() {
             axios
-                .get('http://www.omdbapi.com/', {
+                .get('https://www.omdbapi.com/', {
                     params: {
                         apikey: '310a3fc',
                         y: this.y,
@@ -54,7 +54,7 @@ const Title = Vue.extend({
     methods: {
         searching() {
             axios
-                .get('http://www.omdbapi.com/', {
+                .get('https://www.omdbapi.com/', {
                     params: {
                         apikey: '310a3fc',
                         s: this.s
@@ -71,7 +71,7 @@ const Title = Vue.extend({
         details() {
             let id = event.target.getAttribute('data-id');
             axios
-                .get('http://www.omdbapi.com/', {
+                .get('https://www.omdbapi.com/', {
                     params: {
                         apikey: '310a3fc',
                         i: id
