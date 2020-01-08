@@ -10,53 +10,98 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
-        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">    
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 
     <title>MOVINFO</title>
-</head>
-
-<body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">MOVINFO</a>
+        <router-link class="navbar-brand" to="/">MOVINFO</router-link>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item active">
-                    <a class="nav-link active" href="#">Search Movies<span class="sr-only">(current)</span></a>
-                </li>
-            </ul>
+        <div id="top-page">
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item pl-3">
+                        <router-link class="nav-link" to="/">Home</router-link>
+                    </li>
+                    <li class="nav-item pl-3">
+                        <router-link class="nav-link" to="/title">Search Title</router-link>
+                    </li>
+                    <li class="nav-item pl-3">
+                        <router-link class="nav-link" to="/search">Search with Year</router-link>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    <div id="app" class="container">
+</head>
+
+<body>
+    
+    <div id="app">
+        <router-view ></router-view>
+    </div>
+
+    <!-- template view untuk komponen "Home" -->
+    <script type="text/x-template" id="home">
+        <div class="jumbotron jumbotron-fluid"><h1 class="display-4 text-center">{{ judul }}</h1>
+            <hr class="my-4"/>
+            <p class="lead text-center">{{ konten }}</p>
+        </div>
+    </script>
+
+    <script type="text/x-template" id="title">
+        <div class="container">
+            <div class="row mt-3 justify-content-center">
+                <div class="col-md-7">
+                    <h2 class="text-center">Search Movies</h2>
+                    <div class="input-group mb-3">
+                        <input type="text" v-model="s" class="form-control" placeholder="Movie's Name" @keyup.enter="search">
+                        <div class="input-group-append" >
+                            <button class="btn btn-dark" type="button" id="button-search" @click="search">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+        </div>
+    </script>
+
+    <script type="text/x-template" id="search">
+    <div class="container">
         <div class="row mt-3 justify-content-center">
             <div class="col-md-7">
                 <h2 class="text-center">Search Movies</h2>
                 <div class="input-group mb-3">
                     <input type="text" v-model="t" class="form-control" placeholder="Movie's Name">
-                    <input type="text" v-model="y" class="form-control input-small" placeholder="Movie's Year" style="max-width: 150px;" v-on:keyup.enter="submit">
+                    <input type="text" v-model="y" class="form-control input-small" placeholder="Movie's Year"
+                        style="max-width: 150px;" @keyup.enter="submit">
                     <div class="input-group-append">
                         <button class="btn btn-dark" type="button" id="button-search" @click="submit">Search</button>
                     </div>
                 </div>
             </div>
         </div>
+        <div v-for="movies in mov">
         <hr>
-        <div v-for="movies in mov" >
-            <div v-if="movies.Response=='True'" >
+            <div v-if="movies.Response=='True'">
                 <div class="row justify-content-center bg-dark text-white">
                     <div class="col-md-9">
                         <p class="h2">{{movies.Title}} </p>
                     </div>
                     <div class="col-md-3">
-                        <p class="h2" style="float: right;"><i class="fas fa-star" style="color:#e4bb24;"></i>  {{movies.imdbRating}} / 10</p>
+                        <p class="h2" style="float: right;"><i class="fas fa-star" style="color:#e4bb24;"></i>
+                            {{movies.imdbRating}} / 10</p>
                     </div>
                 </div>
                 <div class="row justify-content-center bg-dark text-white">
                     <div class="col-md-9">
-                        <p>{{movies.Rated}} <i class="fas fa-grip-lines-vertical"></i> {{movies.Runtime}} <i class="fas fa-grip-lines-vertical"></i> {{movies.Year}} <i class="fas fa-grip-lines-vertical"></i> {{movies.Production}} ({{movies.Country}})</p>
+                        <p>{{movies.Rated}} <i class="fas fa-grip-lines-vertical"></i> {{movies.Runtime}} <i
+                                class="fas fa-grip-lines-vertical"></i> {{movies.Year}} <i
+                                class="fas fa-grip-lines-vertical"></i> {{movies.Production}} ({{movies.Country}})</p>
                     </div>
                     <div class="col-md-3">
                         <p style="float: right;">Metascore {{movies.Metascore}}</p>
@@ -94,20 +139,20 @@
                                 </p>
                                 <p class="h5">
                                     Box Office
-                                    <p >&emsp;&emsp; {{movies.BoxOffice}}</p>
+                                    <p>&emsp;&emsp; {{movies.BoxOffice}}</p>
                                 </p>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
+        
             <div v-else-if="movies.Response=='False'">
                 <h2 class="text-center">{{movies.Error}}</h2>
             </div>
         </div>
     </div>
-
+    </script>
     <!-- Modal -->
     <div class="modal fade" id="details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -128,19 +173,50 @@
             </div>
         </div>
     </div>
+
     
 
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-        crossorigin="anonymous"></script>
-    <script src="app.js"></script>
-
 </body>
+<footer class=" navbar py-5 bg-light mt-5">
+    <div class="container">
+        <div class="col-md-4" style="min-height: 125px;">
+            <h4>YourWORK</h4>
+            <p class="text-secondary" id="foot">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
+                voluptatem numquam facilis harum est, eum nesciunt magnam neque culpa quod! Totam perspiciatis iste
+                laboriosam eveniet laudantium illo fugiat autem odio!</p>
+        </div>
+        <div class="col-md-2 ml-1 float-right" style="min-height: 125px;">
+            <h4>USER</h4>
+            <p class="my-0"><a href="#" role="button" class="text-secondary" id="foot-usr">Users</a></p>
+            <p class="my-0"><a href="#" role="button" class="text-secondary" id="foot-usr">Register User</a></p>
+            <p class="my-0"><a href="#" role="button" class="text-secondary my-0" id="foot-usr">Terms & Condition
+                    User</a></p>
+            <p class="my-0"><a href="#" role="button" class="text-secondary my-0" id="foot-usr">FAQ User</a></p>
+        </div>
+        <div class="col-md-5" style="min-height: 125px;">
+            <h4>IKUTI KAMI</h4>
+            <div class="social mt-3">
+                <i id="facebook" class="fab fa-facebook-f mr-3"></i>
+                <i id="instagram" class="fab fa-instagram mr-3"></i>
+                <i id="google" class="fab fa-google-plus mr-3"></i>
+                <i id="youtube" class="fab fa-youtube mr-3"></i>
+                <i id="twitter" class="fab fa-twitter mr-3"></i>
+                <i id="linkedin" class="fab fa-linkedin mr-3"></i>
+            </div>
+        </div>
+    </div>
+</footer>
 
+<!-- https://unpkg.com/vue-router@3.1.3/dist/vue-router.js -->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router@3.1.3/dist/vue-router.js"></script>
+<script src="app.js"></script>
 </html>
