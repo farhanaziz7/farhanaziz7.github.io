@@ -5,7 +5,7 @@ const Home = Vue.extend({
     template: '#home',
     data: function () {
         return {
-            judul: 'Frontend Test',
+            judul: 'Frontend Dev',
             konten: 'Vue JS with Public API',
         }
     }
